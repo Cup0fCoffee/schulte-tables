@@ -1,16 +1,19 @@
 import { shuffleArray } from './utils';
+import './ShulteTable.css';
 
 function ShulteTable({size=3}) {
   const arr = shuffleArray(Array.from(new Array(size*size).keys()));
   return (
-    <div role="grid">
+    <div className="shulte-table" role="grid">
       {new Array(size).fill().map((_, row) => {
         return (
-          <div role="row" key={row}>
+          <div className="shulte-table__row" role="row" key={row}>
             {new Array(size).fill().map((_, col) => {
               return (
-                <div role="cell" key={col}>
-                  {arr[size*row+col]+1}
+                <div className="shulte-table__cell" role="cell" key={col}>
+                  <div className="shulte-table__cell-text">
+                    {arr[size*row+col]+1}
+                  </div>
                 </div>
               );
             })}

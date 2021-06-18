@@ -1,0 +1,39 @@
+.shulte-table {
+  border: 1px solid;
+}
+
+.shulte-table__row {
+  width: 100%;
+  border-bottom: 1px solid;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.shulte-table__row:last-of-type {
+  border-bottom: none;
+}
+
+.shulte-table__cell {
+  flex: 1 1 100%;
+  text-align: center;
+  position: relative;
+  border-right: 1px solid;
+}
+
+.shulte-table__cell:last-of-type {
+  border-right: none;
+}
+
+.shulte-table__cell:before {
+  content: '';
+  display: block;
+  padding-top: 100%;
+}
+
+.shulte-table__cell-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
