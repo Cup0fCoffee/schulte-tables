@@ -35,7 +35,7 @@ describe('ShulteTable Component Tests', () => {
 
   it.each([
     3, 5, 7
-  ])('renders grid with numbers from 1 to n^2', (size) => {
+  ])('renders grid with numbers from 1 to size^2', (size) => {
     render(<ShulteTable size={size} />);
     const grid = screen.getByRole('grid');
     Array(size*size).fill().forEach((_, i) => {
