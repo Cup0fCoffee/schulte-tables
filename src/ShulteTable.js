@@ -13,8 +13,25 @@ function ShulteTable({size=3, onComplete=() => {}}) {
       }, []);
   };
 
+  const adjustCellsFontSize = () => {
+    const cell = document.querySelector('.shulte-table__cell');
+    const cellsHeight = cell.offsetHeight;
+    setFontSize(cellsHeight * 0.3  + "px");
+  };
+
   const [count, setCount] = useState(0);
   const [grid, setGrid] = useState(generateNumbersGrid);
+  const [fontSize, setFontSize] = useState(12);
+
+  useEffect(() => {
+    window.addEventListener('load', adjustCellsFontSize);
+    window.addEventListener('resize', adjustCellsFontSize);
+
+    return () => {
+      window.removeEventListener('load', adjustCellsFontSize);
+      window.removeEventListener('resize', adjustCellsFontSize);
+    };
+  }, []);
 
   useEffect(() => {
     if (count === size*size) {
@@ -31,8 +48,9 @@ function ShulteTable({size=3, onComplete=() => {}}) {
           {arr.map((n, col) => (
             <div
               className="shulte-table__cell"
-              onClick={() => { if (n === count) setCount(() => count + 1); }}
+              onClick={() => { if (n === count) setCount(count + 1); }}
               role="cell"
+              style={ { fontSize } }
               key={col}>
               <div className="shulte-table__cell-text">
                 {n+1}
