@@ -14,9 +14,10 @@ function ShulteTable({size=3, onComplete=()=>{}}) {
   };
 
   const adjustCellsFontSize = () => {
-    const cell = document.querySelector('.shulte-table__cell');
-    if (!cell) return;
-    setFontSize(cell.offsetHeight * 0.3);
+    const grid = document.querySelector('.shulte-table');
+    if (!grid) return;
+    const cellHeight = grid.offsetHeight / size;
+    setFontSize(cellHeight * 0.3);
   };
 
   const resetTable = () => {
@@ -29,6 +30,8 @@ function ShulteTable({size=3, onComplete=()=>{}}) {
   const [fontSize, setFontSize] = useState(12);
 
   useEffect(() => {
+    resetTable();
+    adjustCellsFontSize();
     window.addEventListener('load', adjustCellsFontSize);
     window.addEventListener('resize', adjustCellsFontSize);
 
@@ -36,11 +39,6 @@ function ShulteTable({size=3, onComplete=()=>{}}) {
       window.removeEventListener('load', adjustCellsFontSize);
       window.removeEventListener('resize', adjustCellsFontSize);
     };
-  }, []);
-
-  useEffect(() => {
-    resetTable();
-    adjustCellsFontSize();
   }, [size]);
 
   useEffect(() => {
