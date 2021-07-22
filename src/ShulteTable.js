@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { shuffleArray } from './utils';
 import './ShulteTable.css';
 
-function ShulteTable({size=3, onComplete=() => {}}) {
+function ShulteTable({size=3, onComplete=()=>{}}) {
   const generateNumbersGrid = () => {
     return shuffleArray(Array.from(Array(size*size).keys()))
       .reduce((acc, cur, i) => {
@@ -15,12 +15,17 @@ function ShulteTable({size=3, onComplete=() => {}}) {
 
   const adjustCellsFontSize = () => {
     const cell = document.querySelector('.shulte-table__cell');
-    const cellsHeight = cell.offsetHeight;
-    setFontSize(cellsHeight * 0.3  + "px");
+    if (!cell) return;
+    setFontSize(cell.offsetHeight * 0.3);
+  };
+
+  const resetTable = () => {
+    setCount(0);
+    setGrid(generateNumbersGrid);
   };
 
   const [count, setCount] = useState(0);
-  const [grid, setGrid] = useState(generateNumbersGrid);
+  const [grid, setGrid] = useState([]);
   const [fontSize, setFontSize] = useState(12);
 
   useEffect(() => {
@@ -34,10 +39,14 @@ function ShulteTable({size=3, onComplete=() => {}}) {
   }, []);
 
   useEffect(() => {
+    resetTable();
+    adjustCellsFontSize();
+  }, [size]);
+
+  useEffect(() => {
     if (count === size*size) {
       onComplete();
-      setCount(0);
-      setGrid(generateNumbersGrid());
+      resetTable();
     }
   }, [count]);
 

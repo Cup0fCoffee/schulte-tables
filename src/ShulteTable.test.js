@@ -7,7 +7,22 @@ import {
 } from '@testing-library/react';
 import ShulteTable from './ShulteTable';
 
+
+const getNumbersFromGrid = (grid) => {
+  return Array.from(grid.querySelectorAll('.shulte-table__cell-text'))
+    .map((cellText) => cellText.textContent);
+};
+
+
 describe('ShulteTable Component Tests', () => {
+
+  beforeAll(() => {
+    Object.defineProperties(window.HTMLElement.prototype, {
+      offsetHeight: {
+        get: () => 100,
+      }
+    });
+  });
 
   it('renders 3x3 by default', () => {
     render(<ShulteTable />);
@@ -67,11 +82,6 @@ describe('ShulteTable Component Tests', () => {
   });
 
   it('does not change order after clicks', () => {
-    const getNumbersFromGrid = (grid) => {
-      return Array.from(grid.querySelectorAll('.shulte-table__cell-text'))
-        .map((cellText) => cellText.textContent);
-    };
-
     render(<ShulteTable />);
     const grid = screen.getByRole('grid');
     const cellsNumbers = getNumbersFromGrid(grid);
@@ -83,11 +93,6 @@ describe('ShulteTable Component Tests', () => {
   });
 
   it('resets grid after completion', () => {
-    const getNumbersFromGrid = (grid) => {
-      return Array.from(grid.querySelectorAll('.shulte-table__cell-text'))
-        .map((cellText) => cellText.textContent);
-    };
-
     render(<ShulteTable />);
     const grid = screen.getByRole('grid');
     const cellsNumbers = getNumbersFromGrid(grid);
@@ -101,4 +106,36 @@ describe('ShulteTable Component Tests', () => {
     const cellsNumbersAfterCompletion = getNumbersFromGrid(grid);
     expect(cellsNumbers).not.toEqual(cellsNumbersAfterCompletion);
   });
+
+  it('resets grid after grid size change', () => {
+    const size = 3;
+    const {rerender} = render(<ShulteTable size={size} />);
+    const grid = screen.getByRole('grid');
+    const cellsNumbers = getNumbersFromGrid(grid);
+
+    const newSize = size + 1;
+    rerender(<ShulteTable size={newSize} />);
+
+    const cellsNumbersAfterSizeChange = getNumbersFromGrid(grid);
+    expect(cellsNumbers.length).toEqual(size*size);
+    expect(cellsNumbers).not.toEqual(cellsNumbersAfterSizeChange);
+    expect(cellsNumbersAfterSizeChange.length).toEqual(newSize*newSize);
+  });
+
+  it('adjusts font size after grid size changes', () => {
+    const size = 3;
+    const {rerender} = render(<ShulteTable size={size} />);
+    const cell = screen.getByRole('cell', { name: '1' });
+    const initialFontSize = cell.style.fontSize;
+
+    const newSize = size + 1;
+    rerender(<ShulteTable size={newSize} />);
+
+    const newCell = screen.getByRole('cell', { name: '1' });
+    const newFontSize = newCell.style.fontSize;
+    expect(initialFontSize).not.toEqual(newFontSize);
+  });
+
+  it.todo('adjusts font size on load');
+  it.todo('adjusts font size on resize');
 });
