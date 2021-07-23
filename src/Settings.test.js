@@ -23,9 +23,7 @@ describe('Settings Component Tests', () => {
 
   it('default grid size is 3', () => {
     render(<Settings />);
-
     const gridSizeSlider = screen.getByRole('slider', { name: /grid size/i});
-
     expect(gridSizeSlider.value).toEqual("3");
   });
 
@@ -61,5 +59,57 @@ describe('Settings Component Tests', () => {
 
     expect(gridSizeSlider.value).toEqual("10");
     expect(onSizeChange).toHaveBeenCalledWith(10);
+  });
+
+  it('default grid width is 100%', () => {
+    render(<Settings />);
+    const gridWidthSlider = screen.getByRole('slider', { name: /grid width/i});
+    expect(gridWidthSlider.value).toEqual("100");
+  });
+
+  it('min grid width is 0%', () => {
+    let gridWidth = 100;
+    const onGridWidthChange = jest.fn(x => gridWidth = x);
+    const {rerender} = render(
+      <Settings
+        gridWidth={gridWidth}
+        onGridWidthChange={onGridWidthChange} />);
+
+    const gridWidthSlider = screen.getByRole('slider', { name: /grid width/i});
+    fireEvent.change(
+      gridWidthSlider,
+      { target: { value: -999 } }
+    );
+
+    rerender(
+      <Settings
+        gridWidth={gridWidth}
+        onGridWidthChange={onGridWidthChange} />);
+
+    expect(gridWidthSlider.value).toEqual("0");
+    expect(onGridWidthChange).toHaveBeenCalledWith(0);
+  });
+
+  it('max grid width is 0%', () => {
+    let gridWidth = 0;
+    const onGridWidthChange = jest.fn(x => gridWidth = x);
+    const {rerender} = render(
+      <Settings
+        gridWidth={gridWidth}
+        onGridWidthChange={onGridWidthChange} />);
+
+    const gridWidthSlider = screen.getByRole('slider', { name: /grid width/i});
+    fireEvent.change(
+      gridWidthSlider,
+      { target: { value: 999 } }
+    );
+
+    rerender(
+      <Settings
+        gridWidth={gridWidth}
+        onGridWidthChange={onGridWidthChange} />);
+
+    expect(gridWidthSlider.value).toEqual("100");
+    expect(onGridWidthChange).toHaveBeenCalledWith(100);
   });
 });

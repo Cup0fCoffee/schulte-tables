@@ -55,4 +55,10 @@ describe('App Component Tests', () => {
       expect(cells.length).toBe(newGridSize);
     });
   });
+
+  it('default grid width is 100%', () => {
+    render(<App />);
+    const gridWidthSlider = screen.getByRole('slider', { name: /grid width/i});
+    expect(gridWidthSlider.value).toEqual("100");
+  });
 });
