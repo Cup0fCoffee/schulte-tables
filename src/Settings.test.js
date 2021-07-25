@@ -61,6 +61,25 @@ describe('Settings Component Tests', () => {
     expect(onSizeChange).toHaveBeenCalledWith(10);
   });
 
+  it.each([
+    33, 66, 99
+  ])('calls onGridWidthChange when grid width is changed', (newGridWidth) => {
+    let width = 100;
+    const onGridWidthChange = jest.fn(x => width = x);
+    const {rerender} = render(<Settings gridWidth={width} onGridWidthChange={onGridWidthChange} />);
+
+    const gridGridWidthSlider = screen.getByRole('slider', { name: /grid width/i});
+    fireEvent.change(
+      gridGridWidthSlider,
+      { target: { value: newGridWidth } }
+    );
+
+    rerender(<Settings gridWidth={width} onGridWidthChange={onGridWidthChange} />);
+
+    expect(gridGridWidthSlider.value).toEqual(newGridWidth.toString());
+    expect(onGridWidthChange).toHaveBeenCalledWith(newGridWidth);
+  });
+
   it('default grid width is 100%', () => {
     render(<Settings />);
     const gridWidthSlider = screen.getByRole('slider', { name: /grid width/i});

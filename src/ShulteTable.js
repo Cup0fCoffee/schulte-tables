@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { shuffleArray } from './utils';
 import './ShulteTable.css';
 
-function ShulteTable({size=3, onComplete=()=>{}}) {
+function ShulteTable({size=3, width=100, onComplete=()=>{}}) {
   const generateNumbersGrid = () => {
     return shuffleArray(Array.from(Array(size*size).keys()))
       .reduce((acc, cur, i) => {
@@ -48,8 +48,12 @@ function ShulteTable({size=3, onComplete=()=>{}}) {
     }
   }, [count]);
 
+  useEffect(() => {
+    adjustCellsFontSize();
+  }, [width]);
+
   return (
-    <div className="shulte-table" role="grid">
+    <div className="shulte-table" style={{width: width + '%'}} role="grid">
       {grid.map((arr, row) => (
         <div className="shulte-table__row" role="row" key={row}>
           {arr.map((n, col) => (

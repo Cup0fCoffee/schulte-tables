@@ -136,6 +136,13 @@ describe('ShulteTable Component Tests', () => {
     expect(initialFontSize).not.toEqual(newFontSize);
   });
 
+  it('default grid width is 100%', () => {
+    render(<ShulteTable />);
+    const grid = screen.getByRole('grid');
+    expect(grid).toHaveStyle('width: 100%');
+  });
+
   it.todo('adjusts font size on load');
   it.todo('adjusts font size on resize');
+  it.todo('adjust font size on width change');
 });

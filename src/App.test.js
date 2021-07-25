@@ -2,7 +2,7 @@ import {
   render,
   screen,
   getAllByRole,
-  fireEvent
+  fireEvent,
 } from '@testing-library/react';
 import App from './App';
 
@@ -33,7 +33,7 @@ describe('App Component Tests', () => {
   it('default grid size setting is 3', () => {
     render(<App />);
     const gridSizeSlider = screen.getByRole('slider', { name: /grid size/i});
-    expect(gridSizeSlider.value).toEqual("3");
+    expect(gridSizeSlider).toHaveValue('3');
   });
 
   it.each([
@@ -47,6 +47,7 @@ describe('App Component Tests', () => {
       { target: { value: newGridSize } }
     );
 
+    expect(gridSizeSlider).toHaveValue(newGridSize.toString());
     const shulteTable = document.querySelector('.shulte-table');
     const rows = getAllByRole(shulteTable, 'row');
     expect(rows.length).toBe(newGridSize);
@@ -56,9 +57,31 @@ describe('App Component Tests', () => {
     });
   });
 
-  it('default grid width is 100%', () => {
+  it('ShulteTable width is 100% by default', () => {
+    render(<App />);
+    const shulteTable = document.querySelector('.shulte-table');
+    expect(shulteTable).toHaveStyle('width: 100%');
+  });
+
+  it('default grid width setting is 100%', () => {
     render(<App />);
     const gridWidthSlider = screen.getByRole('slider', { name: /grid width/i});
-    expect(gridWidthSlider.value).toEqual("100");
+    expect(gridWidthSlider).toHaveValue('100');
+  });
+
+  it.each([
+    33, 66, 99
+  ])('ShulteTable width changes when changing grid width through settings', (gridWidth) => {
+    render(<App />);
+
+    const gridWidthSlider = screen.getByRole('slider', { name: /grid width/i});
+    fireEvent.change(
+      gridWidthSlider,
+      { target: { value: gridWidth } }
+    );
+
+    expect(gridWidthSlider).toHaveValue(gridWidth.toString());
+    const shulteTable = document.querySelector('.shulte-table');
+    expect(shulteTable).toHaveStyle(`width: ${gridWidth}%`);
   });
 });

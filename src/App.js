@@ -9,13 +9,19 @@ function App() {
   const onSizeChange = (newSize) =>
     setSettings((settings) => ({...settings, size: newSize}));
 
+  const onGridWidthChange = (newWidth) =>
+    setSettings((settings) => ({...settings, width: newWidth}));
+
   return (
     <>
       <ShulteTable
-        size={settings.size} />
+        size={settings.size}
+        width={settings.width} />
       <Settings
         size={settings.size}
-        onSizeChange={onSizeChange}/>
+        onSizeChange={onSizeChange}
+        gridWidth={settings.width}
+        onGridWidthChange={onGridWidthChange} />
     </>
   );
 }
