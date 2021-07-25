@@ -1,3 +1,5 @@
+import './Settings.css';
+
 function Settings({
   size=3,
   onSizeChange=()=>{},

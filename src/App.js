@@ -13,16 +13,16 @@ function App() {
     setSettings((settings) => ({...settings, width: newWidth}));
 
   return (
-    <>
-      <ShulteTable
-        size={settings.size}
-        width={settings.width} />
+    <div className="app">
       <Settings
         size={settings.size}
         onSizeChange={onSizeChange}
         gridWidth={settings.width}
         onGridWidthChange={onGridWidthChange} />
-    </>
+      <ShulteTable
+        size={settings.size}
+        width={settings.width} />
+    </div>
   );
 }
 
