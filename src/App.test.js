@@ -84,4 +84,52 @@ describe('App Component Tests', () => {
     const shulteTable = document.querySelector('.shulte-table');
     expect(shulteTable).toHaveStyle(`width: ${gridWidth}%`);
   });
+
+  it.each([
+    2, 5, 7
+  ])('loads grid size from localStorage', (size) => {
+    localStorage.setItem('settings', JSON.stringify({size}));
+    render(<App />);
+    const gridSizeSlider = screen.getByRole('slider', { name: /grid size/i});
+    expect(gridSizeSlider).toHaveValue(size.toString());
+  });
+
+  it.each([
+    33, 66, 99
+  ])('loads grid width from localStorage', (width) => {
+    localStorage.setItem('settings', JSON.stringify({width}));
+    render(<App />);
+    const gridWidthSlider = screen.getByRole('slider', { name: /grid width/i});
+    expect(gridWidthSlider).toHaveValue(width.toString());
+  });
+
+  it.each([
+    2, 5, 7
+  ])('saves grid size to localStorage', (size) => {
+    render(<App />);
+
+    const gridSizeSlider = screen.getByRole('slider', { name: /grid size/i});
+    fireEvent.change(
+      gridSizeSlider,
+      { target: { value: size } }
+    );
+
+    const settings = JSON.parse(localStorage.getItem('settings'));
+    expect(settings.size).toEqual(size);
+  });
+
+  it.each([
+    33, 66, 99
+  ])('saves grid width to localStorage', (width) => {
+    render(<App />);
+
+    const gridWidthSlider = screen.getByRole('slider', { name: /grid width/i});
+    fireEvent.change(
+      gridWidthSlider,
+      { target: { value: width } }
+    );
+
+    const settings = JSON.parse(localStorage.getItem('settings'));
+    expect(settings.width).toEqual(width);
+  });
 });
