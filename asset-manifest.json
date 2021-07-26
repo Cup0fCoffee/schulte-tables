@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/schulte-tables/static/css/main.bb965724.chunk.css",
-    "main.js": "/schulte-tables/static/js/main.78130902.chunk.js",
-    "main.js.map": "/schulte-tables/static/js/main.78130902.chunk.js.map",
+    "main.js": "/schulte-tables/static/js/main.877283ea.chunk.js",
+    "main.js.map": "/schulte-tables/static/js/main.877283ea.chunk.js.map",
     "runtime-main.js": "/schulte-tables/static/js/runtime-main.e506c520.js",
     "runtime-main.js.map": "/schulte-tables/static/js/runtime-main.e506c520.js.map",
     "static/js/2.b2ff1354.chunk.js": "/schulte-tables/static/js/2.b2ff1354.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.e506c520.js",
     "static/js/2.b2ff1354.chunk.js",
     "static/css/main.bb965724.chunk.css",
-    "static/js/main.78130902.chunk.js"
+    "static/js/main.877283ea.chunk.js"
   ]
 }
