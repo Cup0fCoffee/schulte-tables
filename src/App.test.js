@@ -7,6 +7,10 @@ import {
 import App from './App';
 
 describe('App Component Tests', () => {
+  afterEach(() => {
+    localStorage.clear();
+  });
+
   it('renders SchulteTable', () => {
     render(<App />);
     const schulteTable = document.querySelector('.schulte-table');
