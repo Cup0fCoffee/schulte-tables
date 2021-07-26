@@ -92,7 +92,7 @@ describe('App Component Tests', () => {
   it.each([
     2, 5, 7
   ])('loads grid size from localStorage', (size) => {
-    localStorage.setItem('settings', JSON.stringify({size}));
+    localStorage.setItem('schulte-tables/settings', JSON.stringify({size}));
     render(<App />);
     const gridSizeSlider = screen.getByRole('slider', { name: /grid size/i});
     expect(gridSizeSlider).toHaveValue(size.toString());
@@ -101,7 +101,7 @@ describe('App Component Tests', () => {
   it.each([
     33, 66, 99
   ])('loads grid width from localStorage', (width) => {
-    localStorage.setItem('settings', JSON.stringify({width}));
+    localStorage.setItem('schulte-tables/settings', JSON.stringify({width}));
     render(<App />);
     const gridWidthSlider = screen.getByRole('slider', { name: /grid width/i});
     expect(gridWidthSlider).toHaveValue(width.toString());
@@ -118,7 +118,7 @@ describe('App Component Tests', () => {
       { target: { value: size } }
     );
 
-    const settings = JSON.parse(localStorage.getItem('settings'));
+    const settings = JSON.parse(localStorage.getItem('schulte-tables/settings'));
     expect(settings.size).toEqual(size);
   });
 
@@ -133,7 +133,7 @@ describe('App Component Tests', () => {
       { target: { value: width } }
     );
 
-    const settings = JSON.parse(localStorage.getItem('settings'));
+    const settings = JSON.parse(localStorage.getItem('schulte-tables/settings'));
     expect(settings.width).toEqual(width);
   });
 });

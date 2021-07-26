@@ -5,12 +5,12 @@ import './App.css';
 
 function App() {
   const updateSettings = (settings) => {
-    localStorage.setItem('settings', JSON.stringify(settings));
+    localStorage.setItem('schulte-tables/settings', JSON.stringify(settings));
     setSettings(settings);
   };
 
   const [settings, setSettings] = useState(
-    () => JSON.parse(localStorage.getItem('settings')) || {}
+    () => JSON.parse(localStorage.getItem('schulte-tables/settings')) || {}
   );
 
   const onSizeChange = (newSize) =>
