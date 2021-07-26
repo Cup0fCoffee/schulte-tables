@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import ShulteTable from './ShulteTable';
+import SchulteTable from './SchulteTable';
 import Settings from './Settings';
 import './App.css';
 
@@ -26,7 +26,7 @@ function App() {
         onSizeChange={onSizeChange}
         gridWidth={settings.width}
         onGridWidthChange={onGridWidthChange} />
-      <ShulteTable
+      <SchulteTable
         size={settings.size}
         width={settings.width} />
     </div>

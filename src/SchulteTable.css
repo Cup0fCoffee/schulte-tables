@@ -1,8 +1,8 @@
-.shulte-table {
+.schulte-table {
   border: 1px solid;
 }
 
-.shulte-table__row {
+.schulte-table__row {
   width: 100%;
   border-bottom: 1px solid;
   display: flex;
@@ -10,28 +10,28 @@
   justify-content: space-between;
 }
 
-.shulte-table__row:last-of-type {
+.schulte-table__row:last-of-type {
   border-bottom: none;
 }
 
-.shulte-table__cell {
+.schulte-table__cell {
   flex: 1 1 100%;
   text-align: center;
   position: relative;
   border-right: 1px solid;
 }
 
-.shulte-table__cell:last-of-type {
+.schulte-table__cell:last-of-type {
   border-right: none;
 }
 
-.shulte-table__cell:before {
+.schulte-table__cell:before {
   content: '';
   display: block;
   padding-top: 100%;
 }
 
-.shulte-table__cell-text {
+.schulte-table__cell-text {
   position: absolute;
   top: 50%;
   left: 50%;

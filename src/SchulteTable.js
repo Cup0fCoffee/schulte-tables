@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { shuffleArray } from './utils';
-import './ShulteTable.css';
+import './SchulteTable.css';
 
-function ShulteTable({size=3, width=100, onComplete=()=>{}}) {
+function SchulteTable({size=3, width=100, onComplete=()=>{}}) {
   const generateNumbersGrid = () => {
     return shuffleArray(Array.from(Array(size*size).keys()))
       .reduce((acc, cur, i) => {
@@ -14,7 +14,7 @@ function ShulteTable({size=3, width=100, onComplete=()=>{}}) {
   };
 
   const adjustCellsFontSize = () => {
-    const grid = document.querySelector('.shulte-table');
+    const grid = document.querySelector('.schulte-table');
     if (!grid) return;
     const cellHeight = grid.offsetHeight / size;
     setFontSize(cellHeight * 0.3);
@@ -53,17 +53,17 @@ function ShulteTable({size=3, width=100, onComplete=()=>{}}) {
   }, [width]);
 
   return (
-    <div className="shulte-table" style={{width: width + '%'}} role="grid">
+    <div className="schulte-table" style={{width: width + '%'}} role="grid">
       {grid.map((arr, row) => (
-        <div className="shulte-table__row" role="row" key={row}>
+        <div className="schulte-table__row" role="row" key={row}>
           {arr.map((n, col) => (
             <div
-              className="shulte-table__cell"
+              className="schulte-table__cell"
               onClick={() => { if (n === count) setCount(count + 1); }}
               role="cell"
               style={ { fontSize } }
               key={col}>
-              <div className="shulte-table__cell-text">
+              <div className="schulte-table__cell-text">
                 {n+1}
               </div>
             </div>
@@ -74,4 +74,4 @@ function ShulteTable({size=3, width=100, onComplete=()=>{}}) {
   );
 }
 
-export default ShulteTable;
+export default SchulteTable;

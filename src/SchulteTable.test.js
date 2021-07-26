@@ -5,16 +5,16 @@ import {
   queryByText,
   fireEvent
 } from '@testing-library/react';
-import ShulteTable from './ShulteTable';
+import SchulteTable from './SchulteTable';
 
 
 const getNumbersFromGrid = (grid) => {
-  return Array.from(grid.querySelectorAll('.shulte-table__cell-text'))
+  return Array.from(grid.querySelectorAll('.schulte-table__cell-text'))
     .map((cellText) => cellText.textContent);
 };
 
 
-describe('ShulteTable Component Tests', () => {
+describe('SchulteTable Component Tests', () => {
 
   beforeAll(() => {
     Object.defineProperties(window.HTMLElement.prototype, {
@@ -25,7 +25,7 @@ describe('ShulteTable Component Tests', () => {
   });
 
   it('renders 3x3 by default', () => {
-    render(<ShulteTable />);
+    render(<SchulteTable />);
     const grid = screen.getByRole('grid');
     const rows = getAllByRole(grid, 'row');
     expect(rows.length).toBe(3);
@@ -38,7 +38,7 @@ describe('ShulteTable Component Tests', () => {
   it.each([
     3, 5, 7
   ])('renders grid with equal sides', (size) => {
-    render(<ShulteTable size={size} />);
+    render(<SchulteTable size={size} />);
     const grid = screen.getByRole('grid');
     const rows = getAllByRole(grid, 'row');
     expect(rows.length).toBe(size);
@@ -51,7 +51,7 @@ describe('ShulteTable Component Tests', () => {
   it.each([
     3, 5, 7
   ])('renders grid with numbers from 1 to size^2', (size) => {
-    render(<ShulteTable size={size} />);
+    render(<SchulteTable size={size} />);
     const grid = screen.getByRole('grid');
     Array(size*size).fill().forEach((_, i) => {
       const n = i + 1;
@@ -62,7 +62,7 @@ describe('ShulteTable Component Tests', () => {
 
   it('exercise is complete if clicked all numbers in ascending order', () => {
     let completed = false;
-    render(<ShulteTable onComplete={() => completed = true} />);
+    render(<SchulteTable onComplete={() => completed = true} />);
     Array(9).fill().forEach((_, i) => {
       const n = i + 1;
       const cell = screen.getByRole('cell', { name: n.toString() });
@@ -73,7 +73,7 @@ describe('ShulteTable Component Tests', () => {
 
   it('can not complete by clicking the same cell', () => {
     let completed = false;
-    render(<ShulteTable onComplete={() => completed = true} />);
+    render(<SchulteTable onComplete={() => completed = true} />);
     Array(9).fill().forEach(() => {
       const cell = screen.getByRole('cell', { name: '1' });
       fireEvent.click(cell);
@@ -82,7 +82,7 @@ describe('ShulteTable Component Tests', () => {
   });
 
   it('does not change order after clicks', () => {
-    render(<ShulteTable />);
+    render(<SchulteTable />);
     const grid = screen.getByRole('grid');
     const cellsNumbers = getNumbersFromGrid(grid);
 
@@ -93,7 +93,7 @@ describe('ShulteTable Component Tests', () => {
   });
 
   it('resets grid after completion', () => {
-    render(<ShulteTable />);
+    render(<SchulteTable />);
     const grid = screen.getByRole('grid');
     const cellsNumbers = getNumbersFromGrid(grid);
 
@@ -109,12 +109,12 @@ describe('ShulteTable Component Tests', () => {
 
   it('resets grid after grid size change', () => {
     const size = 3;
-    const {rerender} = render(<ShulteTable size={size} />);
+    const {rerender} = render(<SchulteTable size={size} />);
     const grid = screen.getByRole('grid');
     const cellsNumbers = getNumbersFromGrid(grid);
 
     const newSize = size + 1;
-    rerender(<ShulteTable size={newSize} />);
+    rerender(<SchulteTable size={newSize} />);
 
     const cellsNumbersAfterSizeChange = getNumbersFromGrid(grid);
     expect(cellsNumbers.length).toEqual(size*size);
@@ -124,12 +124,12 @@ describe('ShulteTable Component Tests', () => {
 
   it('adjusts font size after grid size changes', () => {
     const size = 3;
-    const {rerender} = render(<ShulteTable size={size} />);
+    const {rerender} = render(<SchulteTable size={size} />);
     const cell = screen.getByRole('cell', { name: '1' });
     const initialFontSize = cell.style.fontSize;
 
     const newSize = size + 1;
-    rerender(<ShulteTable size={newSize} />);
+    rerender(<SchulteTable size={newSize} />);
 
     const newCell = screen.getByRole('cell', { name: '1' });
     const newFontSize = newCell.style.fontSize;
@@ -137,7 +137,7 @@ describe('ShulteTable Component Tests', () => {
   });
 
   it('default grid width is 100%', () => {
-    render(<ShulteTable />);
+    render(<SchulteTable />);
     const grid = screen.getByRole('grid');
     expect(grid).toHaveStyle('width: 100%');
   });
